@@ -105,7 +105,7 @@ bool pathrequeststyle             = false;
 bool complement_stat              = false;
 std::string program_name;
 std::string service_path          = "/";
-std::string host                  = "https://s3.amazonaws.com";
+std::string host                  = "https://cas.frn00006.ukcloud.com";
 std::string bucket;
 std::string endpoint              = "us-east-1";
 std::string cipher_suites;
@@ -976,7 +976,7 @@ static int do_create_bucket()
   }else{
     if(NULL == (ptmpfp = tmpfile()) ||
        -1 == (tmpfd = fileno(ptmpfp)) ||
-       0 >= fprintf(ptmpfp, "<CreateBucketConfiguration xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\">\n"
+       0 >= fprintf(ptmpfp, "<CreateBucketConfiguration xmlns=\"http://cas.frn00006.ukcloud.com/doc/2006-03-01/\">\n"
         "  <LocationConstraint>%s</LocationConstraint>\n"
         "</CreateBucketConfiguration>", endpoint.c_str()) ||
        0 != fflush(ptmpfp) ||
@@ -3865,9 +3865,9 @@ static int s3fs_check_service()
           S3FS_PRN_CRIT("Failed to connect region '%s'(default), so retry to connect region '%s'.", endpoint.c_str(), expectregion.c_str());
           endpoint = expectregion;
           if(S3fsCurl::IsSignatureV4()){
-              if(host == "http://s3.amazonaws.com"){
+              if(host == "http://cas.frn00006.ukcloud.com"){
                   host = "http://s3-" + endpoint + ".amazonaws.com";
-              }else if(host == "https://s3.amazonaws.com"){
+              }else if(host == "https://cas.frn00006.ukcloud.com"){
                   host = "https://s3-" + endpoint + ".amazonaws.com";
               }
           }
